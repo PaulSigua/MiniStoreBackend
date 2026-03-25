@@ -1,14 +1,22 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { UsersService } from '../services/users.service';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { UsersService } from 'src/services/users/users.service';
 import { CreateUserDto } from 'src/dto/create-user.dto';
-import { User } from '../entity/user.entity';
+import { User } from 'src/entity/user.entity';
+import { JwtAuthGuard } from 'src/services/auth/guards/jwt-auth.guard';
 
 @ApiTags('Users') //  Swagger
+@ApiBearerAuth()
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo usuario con rol específico' })
   @ApiResponse({

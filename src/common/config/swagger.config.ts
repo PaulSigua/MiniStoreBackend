@@ -8,5 +8,5 @@ export const swaggerConfig = new DocumentBuilder()
   .addTag('Users', 'Gestión de usuarios y perfiles')
   .addTag('Products', 'Catálogo de productos e inventario')
   .addTag('Orders', 'Procesamiento de ventas y facturación')
-  .addBearerAuth() // Si luego añades JWT, ya lo tienes aquí
+  .addBearerAuth()
   .build();
